@@ -1,2 +1,2 @@
 # ClientSideProgramming
-PROG2700 NSCC 2022 winter term - written in javascript
+2022 client side programming (PROG2700 NSCC) - written in javascript
