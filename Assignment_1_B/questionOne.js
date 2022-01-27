@@ -5,6 +5,11 @@
     Otherwise, the function will return the 
     string with the first and last letters removed. */
 
+    console.log(funWithStrings("Triscuit"));
+    console.log(funWithStrings("Cracker"));
+    console.log(funWithStrings("additional"));
+    console.log(funWithStrings("strings"));
+
     function funWithStrings(word) {
         // the word to be returned
         let newWord = "";
@@ -22,5 +27,5 @@
             return newWord;
         }
     }
-    console.log(funWithStrings("Triscuit"));
+
 })();
