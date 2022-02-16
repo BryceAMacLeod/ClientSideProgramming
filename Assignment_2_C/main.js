@@ -7,12 +7,11 @@
     .then(reponse => reponse.json())
     .then(data => deck = data);
 
-    
 
     // using the deck from the previous api call to Draw 5 cards
     setTimeout(function(){
         // getting a random 5 cards
-        //fetch('https://deckofcardsapi.com/api/deck/'+ deck.deck_id + '/draw/?count=5')
+        fetch('https://deckofcardsapi.com/api/deck/'+ deck.deck_id + '/draw/?count=5')
         
         //fetch('http://pokerhand-tester.herokuapp.com/royalflush')
         
@@ -32,7 +31,7 @@
 
         //fetch('http://pokerhand-tester.herokuapp.com/onepair')
 
-        fetch('http://pokerhand-tester.herokuapp.com/highcard')
+        //fetch('http://pokerhand-tester.herokuapp.com/highcard')
         .then(response => response.json())
         .then(data => cards = data.cards);
     }, 300); // delaying the function to make sure a deck has been retrieved
@@ -150,13 +149,9 @@
         for(let i = 0; i < sortedHand.length-1; i++) {
             // looping through the remaining cards
             for(let j = i+1; j < sortedHand.length; j++) {
-                // if the current outer loop card is the same card as the inner loop
-                // just passing over
-                if(j === i) {
-                    continue;
-                }
+            
                 // if the cards are different and there is a match, and hasn't already been recorded
-                else if(sortedHand[i].value === sortedHand[j].value && sortedHand[i].value != pairValue){
+                if(sortedHand[i].value === sortedHand[j].value && sortedHand[i].value != pairValue){
                     // remembering what pairs have been made
                     pairValue = sortedHand[i].value;
                     // looping over the other cards to look for three and four of a kind
@@ -186,6 +181,6 @@
         sortedHand.threeKind = threeKind;
         sortedHand.fourKind = fourKind;
     }
-    
+
 })();
 
