@@ -11,7 +11,7 @@
     // using the deck from the previous api call to Draw 5 cards
     setTimeout(function(){
         // getting a random 5 cards
-        fetch('https://deckofcardsapi.com/api/deck/'+ deck.deck_id + '/draw/?count=5')
+        //fetch('https://deckofcardsapi.com/api/deck/'+ deck.deck_id + '/draw/?count=5')
         
         //fetch('http://pokerhand-tester.herokuapp.com/royalflush')
         
@@ -23,7 +23,7 @@
         
         //fetch('http://pokerhand-tester.herokuapp.com/flush')
         
-        //fetch('http://pokerhand-tester.herokuapp.com/straight')
+        fetch('http://pokerhand-tester.herokuapp.com/straight')
         
         //fetch('http://pokerhand-tester.herokuapp.com/threeofakind')
         
@@ -124,6 +124,12 @@
             // hand is sorted in descending order
             // checking if sequential
             if(sortedHand[i].value === (sortedHand[i-1].value - 1)) {
+                continue;
+            }
+            // for when straight of Ace 2 3 4 5
+            // hand will be sorted Ace 5 4 3 2
+            // check if at i = 1 that arr[1] = 5 & arr[0] = 14 (ace value)
+            else if(sortedHand[i].value === 5 && sortedHand[i-1].value === 14) {
                 continue;
             }
             else {
