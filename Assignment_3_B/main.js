@@ -110,8 +110,11 @@
     //    where the argument string is found in the episode summary.
     function getEpisodeTitles(data, query) {
         return data._embedded.episodes
-        .filter((episode)=> episode.summary
-        .includes(query))
+        .filter((episode)=> episode.summary.includes(query))
+        .reduce((episodeTitles, episode) => {
+            episodeTitles.push(episode.name)
+            return episodeTitles;
+        },[]);
     }
     //6 - Create a function called getCastMembersOver55() which returns a list of cast members
     //    who are currently older than 55 years of age.
@@ -125,7 +128,11 @@
         (member.person.birthday.split("-")[0] < targetYear)
         || ((member.person.birthday.split("-")[0] == targetYear)
         && (member.person.birthday.split("-")[1] <= targetMonth)
-        && (member.person.birthday.split("-")[2] <= targetDay)));
+        && (member.person.birthday.split("-")[2] <= targetDay)))
+        .reduce((people, member) => {
+            people.push(member.person.name);
+            return people;
+        },[]);
     }
     //7 - Create a function called getTotalRuntimeMinutesExcludingSeasonSix that gets the total 
     //    runtime minutes for all episodes excluding episodes in season 6
@@ -141,23 +148,32 @@
     //    but only return an array of JSON objects containing the season number and episode name
     function getFirstFourSeasons(data) {
         return data._embedded.episodes
-        .filter((episode) => episode.season <= 4);
+        .filter((episode) => episode.season <= 4)
+        .reduce((firstFourSeasons, episode) => {
+            let newObj = {
+                season: episode.season,
+                name: episode.name
+            }
+            firstFourSeasons.push(newObj);
+            return firstFourSeasons;
+        },[])
     }
     //9 - Create a function called getEpisodeTallyBySeason that returns an 
     // object containing the season name and the total episodes as key:value pairs for each season
     function getEpisodeTallyBySeason(data) {
-        let seasons = {};
-        for(let i = 1; i <= 10;i++) {
-            seasons[i] = data._embedded.episodes
-            .filter((episode) => episode.season == i).length;
-        }
-        return seasons;
+        return data._embedded.episodes
+        .reduce((seasons, episode) => {
+            seasons[episode.season]++;
+            return seasons;
+        }, {1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0,10:0});
+        
+        
     }
     //10 - Create a funtion called capitalizeTheFriends that transforms the episode JSON data
     // by capitalizing the words Joey, Chandler, Monica, Rachel, Phoebe, and Ross in both 
     // the name and summary of the episodes.
     function capitalizeTheFriends(data) {
-        data._embedded.episodes
+        return data._embedded.episodes
         .map((episode) => {
             episode.name = episode.name.replace(/Joey/g, "JOEY");
             episode.name = episode.name.replace(/Chandler/g, "CHANDLER");
@@ -171,8 +187,16 @@
             episode.summary = episode.summary.replace(/Rachel/g, "RACHEL");
             episode.summary = episode.summary.replace(/Phoebe/g, "PHOEBE");
             episode.summary = episode.summary.replace(/Ross/g, "ROSS");
-        })
-        return data;
+            return episode;
+        }).reduce((capitalizedEpisodes, episode) => {
+            let newObj = {
+                name: episode.name,
+                summary: episode.summary
+            }
+            capitalizedEpisodes.push(newObj)
+            return capitalizedEpisodes;
+        },[]);
+
     }
 })();
 
