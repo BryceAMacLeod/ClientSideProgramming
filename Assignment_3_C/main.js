@@ -82,10 +82,10 @@
             // adds the new 'feature' (point/plane) to storage array
             geoJson.push(geoJsonFeature);
             // for assignment demonstration
-            //console.log(geoJsonFeature);
+            console.log(geoJsonFeature);
         })
         // for assignment demonstration
-        console.log(mapData);
-        console.log(mapData.states.filter((flight) => flight[2]==="Canada"))
+        // console.log(mapData);
+        // console.log(mapData.states.filter((flight) => flight[2]==="Canada"))
     }
 })()
