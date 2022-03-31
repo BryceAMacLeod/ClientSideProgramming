@@ -9,9 +9,11 @@
             // add puzzle to page
             buildPuzzle(puzzleData);
         })
+
     }, false);// end window load
+
     // takes in json containing three in a row puzzle data
-    function buildPuzzle(puzzleData){
+    function buildPuzzle(puzzleData) {
         // checks if old data exists
         var oldPuzzle = document.querySelector('#thePuzzle')
         if((oldPuzzle) != null) {
@@ -139,7 +141,8 @@
         checkSquaresBox.id = "checkbox";
         checkSquaresBox.style.marginLeft = 10 + "px";
 
-        // fires on the 'change' event of the checkbox aka checking and unchecking
+        // fires on the 'change' event of the checkbox
+        // aka checking and unchecking
         checkSquaresBox.addEventListener('change', function () {
             let rowCount = 0;
             puzzleData.rows.map((row) => {
@@ -147,10 +150,13 @@
                 row.filter((square) => square.canToggle)
                 .map((square) => {
                     // getting the square from the document
-                    var theSquare = document.querySelector('#t' + rowCount + '-' + row.indexOf(square));
+                    var theSquare = document
+                    .querySelector('#t' + rowCount + '-' + row.indexOf(square));
                     // if the square's current state is wrong and not default
                     // AND the state of the checkbox is checked
-                    if(square.currentState !== square.correctState && square.currentState !== 0 && checkSquaresBox.checked) {
+                    if(square.currentState !== square.correctState 
+                        && square.currentState !== 0 
+                        && checkSquaresBox.checked) {
                         // highlighting the square with a red border
                         theSquare.style.border = "2px solid red";
                     }
